@@ -1,22 +1,20 @@
-import androidx.appcompat.app.AppCompatActivity
+package com.example.kotlin3
+
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
-    private var clickCount = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-
-        val helloTextView: TextView = findViewById(R.id.helloTextView)
-        val button: Button = findViewById(R.id.button)
-        val counterTextView: TextView = findViewById(R.id.counterTextView)
-
-        button.setOnClickListener {
-            clickCount++
-            counterTextView.text = clickCount.toString()
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
     }
 }
